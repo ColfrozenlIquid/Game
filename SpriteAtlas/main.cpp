@@ -13,7 +13,6 @@ std::string get_path(const std::filesystem::path&);
 bool sort_Images(SDL_Surface*, SDL_Surface*);
 
 int main() {
-    //SDL_Init(SDL_INIT_VIDEO);
     std::string path = "C:/Users/Daniel/Desktop/C++/Game/sprites";
     ImageAtlas image_atlas;
     count_folder_images(path, image_atlas);
