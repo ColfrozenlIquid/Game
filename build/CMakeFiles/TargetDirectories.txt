@@ -1,3 +1,0 @@
-C:/Users/dstoklosa/Desktop/C++/Game/build/CMakeFiles/cmake_game.dir
-C:/Users/dstoklosa/Desktop/C++/Game/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/dstoklosa/Desktop/C++/Game/build/CMakeFiles/ZERO_CHECK.dir
