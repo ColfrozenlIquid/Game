@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Users/dstoklosa/Documents/Compiler/winlibs/mingw64/**"
+                "C:/mingw64",
+                "C:/mingw64/include"
             ],
             "defines": [
                 "_DEBUG",

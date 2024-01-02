@@ -83,6 +83,12 @@
         "string_view": "cpp",
         "cinttypes": "cpp",
         "map": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "filesystem": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp",
+        "coroutine": "cpp",
+        "forward_list": "cpp",
+        "iomanip": "cpp"
     }
 }
