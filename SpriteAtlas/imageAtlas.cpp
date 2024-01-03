@@ -16,6 +16,6 @@ int ImageAtlas::get_image_count() {
     return this->m_image_count;
 }
 
-std::vector<SDL_Surface*> ImageAtlas::get_image_surfaces() {
+std::vector<SDL_Surface*>& ImageAtlas::get_image_surfaces() {
     return this->m_image_surface_vec;
 }

@@ -8,33 +8,46 @@
 #include <iostream>
 #include <algorithm>
 
-void count_folder_images(std::string, ImageAtlas& image_atlas);
+#define SPRITEPATH "..\\sprites"
+
+void count_folder_images(std::string, ImageAtlas&);
 std::string get_path(const std::filesystem::path&);
-bool sort_Images(SDL_Surface*, SDL_Surface*);
+bool sort_Images(const SDL_Surface*, const SDL_Surface*);
 
 int main() {
-    std::string path = "C:/Users/Daniel/Desktop/C++/Game/sprites";
+
+    bool initialisation_success = true;
+
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL could not initialise. SDL Error: %s\n", SDL_GetError());
+        initialisation_success = false;
+    }
+
+    if (IMG_Init(IMG_INIT_PNG) < 0) {
+        printf("SDL_IMG could not initialise PNG. SDL_IMAGE Error: %s\n", SDL_GetError());
+        initialisation_success = false;
+    }
+
+    std::string path = SPRITEPATH;
     ImageAtlas image_atlas;
     count_folder_images(path, image_atlas);
-    std::cout << "Contains " << image_atlas.get_image_surfaces().size() << " elements" << std::endl;
-    std::cout << "Found " << image_atlas.get_image_count() << " images" << std::endl;
-
     std::sort(image_atlas.get_image_surfaces().begin(), image_atlas.get_image_surfaces().end(), sort_Images);
 
     for(auto image_surface : image_atlas.get_image_surfaces()) {
         std::cout << "Image width: " << image_surface->w << " image height: " << image_surface->h << std::endl;
     }
+
+    IMG_Quit();
+    SDL_Quit();
+
     return 0;
 }
 
-bool sort_Images(SDL_Surface* sdl_surface_a, SDL_Surface* sdl_surface_b) {
-
-    std::cout << "Surface A: " << sdl_surface_a->h << std::endl;
-    std::cout << "Surface B: " << sdl_surface_b->h << std::endl;
-    if (sdl_surface_a->h > sdl_surface_b->h) {
-        return 1;
+bool sort_Images(const SDL_Surface* sdl_surface_a, const SDL_Surface* sdl_surface_b) {
+    if (!sdl_surface_a || !sdl_surface_b) {
+        return false;
     }
-    return 0;
+    return (sdl_surface_a->h > sdl_surface_b->h);
 }
 
 void count_folder_images(std::string folderpath, ImageAtlas& image_atlas) {
@@ -45,6 +58,9 @@ void count_folder_images(std::string folderpath, ImageAtlas& image_atlas) {
             std::cout << "Found image at: " << get_path(dir_entry.path()) << std::endl;
             image_atlas.add_image(image);
             count++;
+        }
+        else {
+            std::cout << "Failed to load image at: " << get_path(dir_entry.path()) << std::endl;
         }
     }
     image_atlas.set_image_count(count);
