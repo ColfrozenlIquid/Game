@@ -1,8 +1,17 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
+#define ATLAS_WIDTH 1000
+#define ATLAS_HEIGHT 2000
+#define PADDING 2
+
 typedef struct Node {
-    
+    int x_pos;
+    int y_pos;
+    int width;
+    int height;
+    int used;
+    Node* child_node[2];
 } Node;
 
 class ImageAtlas {
@@ -14,12 +23,12 @@ class ImageAtlas {
         int get_image_count();
         std::vector<SDL_Surface*>& get_image_surfaces();
 
+        static Node* find_node(Node* root, int width, int height);
+        static void split_node(Node* node, int width, int height);
+        static void blit_rotated(SDL_Surface* source, SDL_Surface* destination, int dest_x, int dest_y);
+
     private:
-        int m_pos_x;
-        int m_pos_y;
-        int m_atlas_height;
-        int m_atlas_width;
-        int m_used;
+        Node m_node_root;
         int m_image_count;
         std::vector<SDL_Surface*> m_image_surface_vec;
 };
